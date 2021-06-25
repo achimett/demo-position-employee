@@ -41,4 +41,24 @@ public class Position {
         this.desc = desc;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof Position)) {
+            return false;
+        }
+
+        Position p = (Position) obj;
+
+        return name.equals(p.name) && desc.equals(p.desc);
+    }
+
+    @Override
+    public String toString() {
+        return "Professional Position: " + name + "\n"
+                + "Description: " + desc + "\n";
+    }
 }

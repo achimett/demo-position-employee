@@ -1,9 +1,8 @@
 package com.achimett.demopositionemployee;
 
 import com.sun.istack.NotNull;
-import org.springframework.data.rest.core.annotation.RestResource;
+import org.springframework.lang.Nullable;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -11,7 +10,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -43,7 +41,7 @@ public class Employee {
 
     protected Employee() {}
 
-    public Employee(@NotNull String name, @NotNull String surname, @NotNull Date birthDate, @NotNull Gender gender, Position position) {
+    public Employee(@NotNull String name, @NotNull String surname, @NotNull Date birthDate, @NotNull Gender gender, @Nullable Position position) {
         this.name = name;
         this.surname = surname;
         this.birthDate = birthDate;
@@ -89,5 +87,24 @@ public class Employee {
 
     public void setPosition(Position position) {
         this.position = position;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+
+        if (!(obj instanceof Employee)) {
+            return false;
+        }
+
+        Employee e = (Employee) obj;
+
+        return birthDate.equals(e.birthDate) &&
+                surname.equals(e.surname) &&
+                name.equals(e.name) &&
+                gender.equals(e.gender) &&
+                position.equals(e.position);
     }
 }
